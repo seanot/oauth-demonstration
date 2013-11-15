@@ -3,6 +3,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/rails'
+require 'capybara/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -39,4 +41,17 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  OmniAuth.configure.test_mode = true
+  OmniAuth.configure.add_mock(:google_oauth2, {:provider => 'google_oauth2',
+                                               :uid => '12345',
+                                               :info => {
+                                                 :name => 'Sean',
+                                                 :email => 'sean@seanco.com'
+                                               }
+                                               :credentials => {
+                                                 :token => 'thisisanoauthtoken888'
+                                               }
+                                              })
+
 end
