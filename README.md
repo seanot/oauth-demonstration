@@ -1,0 +1,1 @@
+This is a demonstration CRUD app that uses several oauth authorization schemes.
