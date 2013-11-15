@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use postgresql as the database for Active Record
+gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -30,6 +32,22 @@ gem 'jbuilder', '~> 1.2'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
+end
+
+# Omniauth components
+gem 'omniauth', '~> 1.1.4'
+gem 'omniauth-google-oauth2', '~> 0.2.1'
+gem 'omniauth-dropbox-oauth2', '~> 0.1.0'
+
+group :development do
+  gem 'pry-rails'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.14.0'
+  gem 'capybara', '~> 2.1.0'
+  gem 'factory_girl_rails', '~> 4.3.0'
+  gem 'dotenv-rails', '~> 0.9.0'
 end
 
 # Use ActiveModel has_secure_password
