@@ -34,6 +34,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# Omniauth components
+gem 'omniauth', '~> 1.1.4'
+gem 'omniauth-google-oauth2', '~> 0.2.1'
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.0'
   gem 'capybara', '~> 2.1.0'
