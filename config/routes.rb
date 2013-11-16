@@ -2,6 +2,7 @@ OauthDemonstration::Application.routes.draw do
 
   root "users#index"
   resources :users
+  resources :identities
 
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"

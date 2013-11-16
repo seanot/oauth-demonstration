@@ -1,3 +1,10 @@
 <div class="index_page">
-  <p>Splash Page</p>
+  <div class="sign_in">
+    <% if !current_user %>
+      <%= link_to "Sign in with your Dropbox account", "/auth/dropbox_oauth2",
+          id: "sign_in" %> <br>
+      <%= link_to "Sign in with your Google ID", "/auth/google_oauth2",
+          id: "sign_in" %>
+    <% end %>
+  </div>
 </div>
