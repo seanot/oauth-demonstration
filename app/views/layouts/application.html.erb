@@ -8,15 +8,10 @@
   <%= csrf_meta_tags %>
 </head>
   <body>
-    <div class="sign_in">
+    <div class="signout">
       <% if current_user %>
         <p class="current_user">Hello <%= current_user.name %></p>
         <%= link_to "Sign out", logout_path, id: "sign_out" %>
-      <% else %>
-        <%= link_to "Sign in with your Dropbox account", "/auth/dropbox_oauth2",
-            id: "sign_in" %> <br>
-        <%= link_to "Sign in with your Google ID", "/auth/google_oauth2",
-            id: "sign_in" %>
       <% end %>
     </div>
 
