@@ -38,6 +38,7 @@ end
 gem 'omniauth', '~> 1.1.4'
 gem 'omniauth-google-oauth2', '~> 0.2.1'
 gem 'omniauth-dropbox-oauth2', '~> 0.1.0'
+gem 'omniauth-linkedin-oauth2', '~> 0.1.2'
 
 group :development do
   gem 'pry-rails'
