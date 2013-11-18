@@ -1,0 +1,13 @@
+!!! 5
+%html
+%head
+  %title OauthDemonstration
+  = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+  = javascript_include_tag "application", "data-turbolinks-track" => true
+  =csrf_meta_tags
+  %body
+    .signout
+      - if current_user
+        %p = .current_user Hello = current_user.name
+        = link_to "Signout", logout_path, id: "sign_out"
+    = yield
