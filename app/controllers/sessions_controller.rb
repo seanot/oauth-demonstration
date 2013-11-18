@@ -4,33 +4,41 @@ class SessionsController < ApplicationController
 
   def create
     # render :text => request.env['omniauth.auth'].to_yaml
-    auth = request.env['omniauth.auth']
-    user = User.find_or_create_with_omniauth(auth)
-    @identity = Identity.find_with_omniauth(auth)
+    if auth = request.env['omniauth.auth']
+      user = User.find_or_create_with_omniauth(auth)
+      @identity = Identity.find_with_omniauth(auth)
+      if @identity.nil?
+        @identity = Identity.create_with_omniauth(auth, user)
+      end
 
-    if @identity.nil?
-      @identity = Identity.create_with_omniauth(auth, user)
-    end
-
-    if signed_in?
-      if @identity.user == current_user
-        flash[:notice] = "Already linked to that account."
-        redirect_to :root
+      if signed_in?
+        if @identity.user == current_user
+          flash[:notice] = "Already linked to that account."
+          redirect_to :root
+        else
+          @identity.user = current_user
+          @identity.save
+          flash[:notice] = "Successfully linked to that account."
+          redirect_to :root
+        end
       else
-        @identity.user = current_user
-        @identity.save
-        flash[:notice] = "Successfully linked to that account."
-        redirect_to :root
+        if @identity.user.present?
+          self.current_user = @identity.user
+          flash[:notice] = "Signed in."
+          redirect_to :root
+        else
+          current_user = @identity.user
+          flash[:notice] = "Thank you for registering."
+          redirect_to :root
+        end
       end
     else
-      if @identity.user.present?
-        self.current_user = @identity.user
-        flash[:notice] = "Signed in."
+      user = User.find_by(email: params[:email])
+      if user && user.authenticate(params[:password])
+        session[:user_id] = user.id
         redirect_to :root
       else
-        current_user = @identity.user
-        flash[:notice] = "Thank you for registering."
-        redirect_to :root
+        flash.now.alert = "Please reneter your credentials."
       end
     end
   end
