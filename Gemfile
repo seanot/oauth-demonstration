@@ -38,6 +38,9 @@ end
 gem 'omniauth', '~> 1.1.4'
 gem 'omniauth-google-oauth2', '~> 0.2.1'
 gem 'omniauth-dropbox-oauth2', '~> 0.1.0'
+gem 'omniauth-linkedin-oauth2', '~> 0.1.2'
+gem 'omniauth-dbc', '~> 1.0.0'
+gem 'omniauth-github', '~> 1.1.1'
 
 group :development do
   gem 'pry-rails'
@@ -51,7 +54,7 @@ group :development, :test do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
