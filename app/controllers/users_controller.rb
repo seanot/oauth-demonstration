@@ -11,9 +11,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to :root
+      redirect_to :root, alert: "Thank you for regesitering."
     else
-      render :new
+      render :new, alert: "Something didn't work correctly. Please try again."
     end
   end
 
