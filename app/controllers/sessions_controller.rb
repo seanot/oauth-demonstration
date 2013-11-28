@@ -38,7 +38,8 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
         redirect_to :root
       else
-        flash.now.alert = "Please reneter your credentials."
+        flash[:alert] = "Please re-enter your credentials."
+        redirect_to new_user_path
       end
     end
   end
