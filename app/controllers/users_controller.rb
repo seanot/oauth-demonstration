@@ -11,10 +11,20 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to :root, alert: "Thank you for regesitering."
+      redirect_to :root, alert: "Thank you for regestering."
     else
       render :new, alert: "Something didn't work correctly. Please try again."
     end
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    user = current_user
+    user.update_attributes(user_params)
+    redirect_to :root
   end
 
   private

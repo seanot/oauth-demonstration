@@ -1,0 +1,21 @@
+body {
+  font-family: sans-serif;
+  font-weight: normal;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -125px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.flash_message {
+  color: white;
+  background-color: #C41E32;
+}

@@ -1,17 +1,18 @@
-.index_page
-  .sign_in
-    - if !current_user
-      = link_to "Sign in with your Dropbox ID", "/auth/dropbox_oauth2", id: "sign_in"
-      %br/
-      = link_to "Sign in with your Google ID", "/auth/google_oauth2", id: "sign_in"
-      %br/
-      = link_to "Sign in with your LinkedIn ID", "/auth/linkedin", id: "sign_in"
-      %br/
-      = link_to "Sign in with your GitHub ID", "/auth/github", id: "sign_in"
-      %br/
-      = link_to "Sign in or sign up with your email and password", new_user_path
+- if !current_user
+  .sign_in.centered
+    %p= link_to image_tag('dropbox.png', height: '32', width: '32') + "Sign in with your Dropbox ID", "/auth/dropbox_oauth2", id: "sign_in"
+    %p= link_to image_tag('google_32.png') + "Sign in with your Google ID", "/auth/google_oauth2", id: "sign_in"
+    %p= link_to image_tag('linkedin_32.png') + "Sign in with your LinkedIn ID", "/auth/linkedin", id: "sign_in"
+    %p= link_to image_tag('github_32.png') + "Sign in with your GitHub ID", "/auth/github", id: "sign_in"
+    %br/
+    %p= link_to "Sign in or sign up with your email address", new_user_path
 
+- if current_user && current_user.identities.length > 0
+  .show_identities
+    %p You have authorized this app with the following services:
+    %ul
+      - current_user.identities.each do |identity|
+        %li= identity.provider
 
-
-
+    %p= link_to("Edit your account", edit_user_path(current_user))
 
