@@ -42,16 +42,16 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  OmniAuth.configure.test_mode = true
-  OmniAuth.configure.add_mock(:google_oauth2, {:provider => 'google_oauth2',
-                                               :uid => '12345',
-                                               :info => {
-                                                 :name => 'Sean',
-                                                 :email => 'sean@seanco.com'
-                                               }
-                                               :credentials => {
-                                                 :token => 'thisisanoauthtoken888'
-                                               }
-                                              })
+  # OmniAuth.configure.test_mode = true
+  # OmniAuth.configure.add_mock(:google_oauth2, {:provider => 'google_oauth2',
+  #                                              :uid => '12345',
+  #                                              :info => {
+  #                                                :name => 'Sean',
+  #                                                :email => 'sean@seanco.com'
+  #                                              },
+  #                                              :credentials => {
+  #                                                :token => 'thisisanoauthtoken888'
+  #                                              }
+  #                                             })
 
 end
