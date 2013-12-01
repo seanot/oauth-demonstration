@@ -36,9 +36,10 @@ class SessionsController < ApplicationController
       user = User.find_by(email: params[:email])
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
+        flash[:notice] = "Logged in."
         redirect_to :root
       else
-        flash[:alert] = "Please re-enter your credentials."
+        flash[:notice] = "Please re-enter your credentials."
         redirect_to new_user_path
       end
     end
