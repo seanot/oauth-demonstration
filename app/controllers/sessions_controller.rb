@@ -3,14 +3,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # render :text => request.env['omniauth.auth'].to_yaml
     if auth = request.env['omniauth.auth']
       user = User.find_or_create_with_omniauth(auth)
       @identity = Identity.find_with_omniauth(auth)
       if @identity.nil?
         @identity = Identity.create_with_omniauth(auth, user)
       end
-
       if signed_in?
         if @identity.user == current_user
           flash[:notice] = "Already linked to that account."
