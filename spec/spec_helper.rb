@@ -42,16 +42,17 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  # OmniAuth.configure.test_mode = true
-  # OmniAuth.configure.add_mock(:google_oauth2, {:provider => 'google_oauth2',
-  #                                              :uid => '12345',
-  #                                              :info => {
-  #                                                :name => 'Sean',
-  #                                                :email => 'sean@seanco.com'
-  #                                              },
-  #                                              :credentials => {
-  #                                                :token => 'thisisanoauthtoken888'
-  #                                              }
-  #                                             })
+  # Include FactoryGirl syntax to simplify calls to factories
+  config.include FactoryGirl::Syntax::Methods
 
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.add_mock(:google_oauth2, {:provider => 'google_oauth2',
+                                            :uid => '12345',
+                                            :info => {
+                                            :name => 'Sean',
+                                            :email => 'sean@seanco.com'
+                                           },
+                                            :credentials => {
+                                            :token => 'thisisanoauthtoken888'
+                                           }})
 end

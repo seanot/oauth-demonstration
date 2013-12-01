@@ -11,9 +11,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to :root, alert: "Thank you for regestering."
+      flash[:notice] = "Thank you for registering."
+      redirect_to :root
     else
-      render :new, alert: "Something didn't work correctly. Please try again."
+      flash[:notice] = "Something didn't work correctly. Please try again."
+      render :new
     end
   end
 
@@ -22,14 +24,26 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = current_user
-    user.update_attributes(user_params)
+    @user = current_user
+    @user.update_attributes(user_params)
+    flash[:notice] = "User attributes updated."
+    redirect_to :root
+  end
+
+  def destroy
+    @user = current_user
+    @user.destroy
+    self.current_user = nil
+    flash[:notice] = "Account deleted."
     redirect_to :root
   end
 
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name,
+                                   :email,
+                                   :password,
+                                   :password_confirmation)
     end
 
 end

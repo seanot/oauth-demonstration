@@ -13,6 +13,7 @@
     %ul
       - current_user.identities.each do |identity|
         %li= identity.provider
-
-    %p= link_to("Edit your account", edit_user_path(current_user))
+- if current_user
+  %p= link_to("Edit your account", edit_user_path(current_user))
+  %p= link_to("Delete your account", user_path(current_user), method: :delete, data: { confirm: 'Are you sure?' })
 

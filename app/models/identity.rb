@@ -1,6 +1,8 @@
 class Identity < ActiveRecord::Base
   belongs_to :user
 
+  validates_uniqueness_of :provider, scope: :user_id
+
   def self.find_with_omniauth(auth)
     find_by_provider_and_uid(auth['provider'], auth['uid'].to_s)
   end

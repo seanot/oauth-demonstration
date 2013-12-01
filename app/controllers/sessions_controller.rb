@@ -3,14 +3,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # render :text => request.env['omniauth.auth'].to_yaml
     if auth = request.env['omniauth.auth']
       user = User.find_or_create_with_omniauth(auth)
       @identity = Identity.find_with_omniauth(auth)
       if @identity.nil?
         @identity = Identity.create_with_omniauth(auth, user)
       end
-
       if signed_in?
         if @identity.user == current_user
           flash[:notice] = "Already linked to that account."
@@ -36,9 +34,10 @@ class SessionsController < ApplicationController
       user = User.find_by(email: params[:email])
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
+        flash[:notice] = "Logged in."
         redirect_to :root
       else
-        flash[:alert] = "Please re-enter your credentials."
+        flash[:notice] = "Please re-enter your credentials."
         redirect_to new_user_path
       end
     end
