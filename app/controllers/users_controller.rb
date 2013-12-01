@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to :root, alert: "Thank you for regestering."
+      redirect_to :root, alert: "Thank you for registering."
     else
       render :new, alert: "Something didn't work correctly. Please try again."
     end
@@ -22,8 +22,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = current_user
-    user.update_attributes(user_params)
+    @user = current_user
+    @user.update_attributes(user_params)
     redirect_to :root
   end
 
