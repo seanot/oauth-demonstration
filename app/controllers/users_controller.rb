@@ -30,9 +30,20 @@ class UsersController < ApplicationController
     redirect_to :root
   end
 
+  def destroy
+    @user = current_user
+    @user.destroy
+    self.current_user = nil
+    flash[:notice] = "Account deleted."
+    redirect_to :root
+  end
+
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name,
+                                   :email,
+                                   :password,
+                                   :password_confirmation)
     end
 
 end

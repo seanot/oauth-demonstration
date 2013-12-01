@@ -60,7 +60,7 @@ describe UsersController do
 
   describe 'PATCH#update' do
     before :each do
-      @user = create(:user, name: "Sean O'Toole",
+      current_user = create(:user, name: "Sean O'Toole",
                             email: "sean@seanco.com")
     end
 
@@ -79,13 +79,28 @@ describe UsersController do
         expect(@user.email).to eq("sean@seanco.com")
       end
 
-      it "redirects to :root"
+      it "redirects to :root" do
+        patch :update, id: @user, user: attributes_for(:user)
+        expect(response).to redirect_to :root
+      end
     end
   end
 
   describe 'DELETE#destroy' do
-    it "deletes the contact"
+    before :each do
+      @user = create(:user)
+    end
+
+    it "deletes the contact" do
+      expect{
+        delete :destroy, id: @user
+      }.to change(User, :count).by(-1)
+    end
+
     it "deletes the associated identities"
-    it "redirects to :root"
+    it "redirects to :root" do
+      delete :destroy, id: @user
+      expect(response).to redirect_to :root
+    end
   end
 end
