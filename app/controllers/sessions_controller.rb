@@ -3,43 +3,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if auth = request.env['omniauth.auth']
-      user = User.find_or_create_with_omniauth(auth)
-      @identity = Identity.find_with_omniauth(auth)
-      if @identity.nil?
-        @identity = Identity.create_with_omniauth(auth, user)
-      end
-      if signed_in?
-        if @identity.user == current_user
-          flash[:notice] = "Already linked to that account."
-          redirect_to :root
-        else
-          @identity.user = current_user
-          @identity.save
-          flash[:notice] = "Successfully linked to that account."
-          redirect_to :root
-        end
-      else
-        if @identity.user.present?
-          self.current_user = @identity.user
-          flash[:notice] = "Signed in."
-          redirect_to :root
-        else
-          current_user = @identity.user
-          flash[:notice] = "Thank you for registering."
-          redirect_to :root
-        end
-      end
+    auth = Authentication.new(params, env['omniauth.auth'])
+    if auth.authenticated?
+      session[:user_id] = auth.user.id
+      flash[:notice] = "Logged in."
+      redirect_to :root
     else
-      user = User.find_by(email: params[:email])
-      if user && user.authenticate(params[:password])
-        session[:user_id] = user.id
-        flash[:notice] = "Logged in."
-        redirect_to :root
-      else
-        flash[:notice] = "Please re-enter your credentials."
-        redirect_to new_user_path
-      end
+      flash[:notice] = "Email or password invalid."
+      render :new
     end
   end
 
@@ -48,5 +19,4 @@ class SessionsController < ApplicationController
     flash[:notice] = "Signed out."
     redirect_to :root
   end
-
 end
