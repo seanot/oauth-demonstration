@@ -1,4 +1,4 @@
 - flash.each do |name, msg|
   - if msg.is_a?(String)
-    .flash_message= content_tag :div, msg, :id => "flash_#{name}"
+    .flash_message#flash= content_tag :div, msg, :id => "flash_#{name}"
   %br/
