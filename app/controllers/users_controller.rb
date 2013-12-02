@@ -25,14 +25,14 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update_attributes(user_params)
+    @user.update(user_params)
     flash[:notice] = "User attributes updated."
     redirect_to :root
   end
 
   def destroy
-    @user = current_user
-    @user.destroy
+    user = current_user
+    user.destroy
     self.current_user = nil
     flash[:notice] = "Account deleted."
     redirect_to :root

@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe UsersController do
+  before :each do
+    user = create(:user)
+    session[:user_id] = user.id
+  end
 
   describe 'GET#new' do
     it "assigns @user to be an instance of User" do
@@ -60,8 +64,8 @@ describe UsersController do
 
   describe 'PATCH#update' do
     before :each do
-      current_user = create(:user, name: "Sean O'Toole",
-                            email: "sean@seanco.com")
+      @user = create(:user, name: "Sean O'Toole",
+                           email: "sean@seanco.com")
     end
 
     context "valid attributes" do
@@ -87,19 +91,18 @@ describe UsersController do
   end
 
   describe 'DELETE#destroy' do
-    before :each do
-      @user = create(:user)
-    end
 
     it "deletes the contact" do
+      user = create(:user)
       expect{
-        delete :destroy, id: @user
+        delete :destroy, id: user
       }.to change(User, :count).by(-1)
     end
 
     it "deletes the associated identities"
     it "redirects to :root" do
-      delete :destroy, id: @user
+      user = create(:user)
+      delete :destroy, id: user
       expect(response).to redirect_to :root
     end
   end
