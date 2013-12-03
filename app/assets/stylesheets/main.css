@@ -16,6 +16,15 @@ ul {
 }
 
 .flash_message {
+  position: fixed;
+  height: 35px;
+  width: 600px;
+  left: 17%;
+  border-radius: 5px;
+  border: 1px solid#C41000;
+  background-color: #e2968f;
   color: white;
-  background-color: #C41E32;
+  font-size: 14px;
+  text-align: center;
+  padding-top: 10px;
 }
